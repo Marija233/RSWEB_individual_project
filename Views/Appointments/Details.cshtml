@@ -1,0 +1,95 @@
+﻿@model Project2.Models.Appointment
+
+@{
+    ViewData["Title"] = "Appointment Details";
+}
+
+<h2 style=" text-align: center; color: #1149a1;text-shadow: 2px 2px 2px #f22f39">Medical Record</h2>
+
+
+
+<dl class="row">
+    <dt class="col-sm-2" style="color: #dc3545"  >
+        Clinical Hospital:
+    </dt>
+    <dd class="col-sm-10" style="color: #1b6ec2">
+        Heigths of Health
+    </dd>
+
+    <dt class="col-sm-2"  style="color: #1b6ec2">
+        Appointment @Html.DisplayNameFor(model => model.Date):
+    </dt>
+    <dd class="col-sm-10"  style="color: #dc3545">
+        @Html.DisplayFor(model => model.Date)
+    </dd>
+    <dt class="col-sm-2" style="color: #dc3545">
+        Patient Number:
+    </dt>
+    <dd class="col-sm-10"  style="color: #1b6ec2">
+        @Html.DisplayFor(model => model.Patient.PatientNumber)
+    </dd>
+    <dt class="col-sm-2"  style="color: #1b6ec2">
+        Patient @Html.DisplayNameFor(model => model.Patient.FullName):
+    </dt>
+    <dd class="col-sm-10" style=" color: #dc3545">
+        @Html.DisplayFor(model => model.Patient.FullName)
+    </dd>
+    <dt class="col-sm-2" style="color: #dc3545">
+        Date of Birth:
+    </dt>
+    <dd class="col-sm-10"  style="color: #1b6ec2">
+        @Html.DisplayFor(model => model.Patient.BirthDate)
+    </dd>
+   
+   
+</dl>
+
+
+    <div>
+        <h5> @Html.DisplayNameFor(model => model.Symptoms)</h5>
+        <p> @Html.DisplayFor(model => model.Symptoms)</p>
+        <h5> @Html.DisplayNameFor(model => model.Examination)</h5>
+        <p>@Html.DisplayFor(model => model.Examination)</p>
+        <h5>@Html.DisplayNameFor(model => model.Diagnosis)</h5>
+        <p>@Html.DisplayFor(model => model.Diagnosis)</p>
+        <h5> @Html.DisplayNameFor(model => model.Therapy)</h5>
+        <p>@Html.DisplayFor(model => model.Therapy)</p>
+        <h5> @Html.DisplayNameFor(model => model.MedicalReport)</h5>
+        <p>
+            <audio controls>
+                <source src="~/medicalreports/@Model.MedicalReport" type="audio/mp3">
+            </audio>
+        </p>
+        <h5>@Html.DisplayNameFor(model => model.Doctor)</h5>
+        <p>@Html.DisplayFor(model => model.Doctor.FullName)</p>
+
+
+
+    </div>
+
+
+
+
+
+
+    <div>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit |</a>
+
+            <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            <p> <a asp-action="Index">Back to List of Appointments</a> </p>
+        }
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Doctor"))
+        {
+
+            <a asp-controller="Doctors" asp-action="MyPatients" asp-route-id="@Model.DoctorId">Back to List Of Patients by Doctor</a>
+
+        }
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Patient"))
+        {
+
+            <a asp-controller="Patients" asp-action="MyDoctors" asp-route-id="@Model.PatientId">Back to List of Doctors by Patient</a>
+
+        }
+    </div>

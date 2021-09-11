@@ -1,0 +1,186 @@
+﻿@model IEnumerable<Project2.Models.Patient>
+
+@{ ViewData["Title"] = "Doctor's Patients"; }
+
+
+<h2 style="color: #dc3545;text-shadow: 1px 1px 1px #dc3545">Doctor @ViewData["DoctorName"]'s patients:</h2>
+<br />
+
+<style>
+    table.dltrc {
+        width: 95%;
+        border-collapse: separate;
+        border-spacing: 0px;
+        border: solid black 2px;
+        border-radius: 8px;
+    }
+
+    tr.dlheader {
+        text-align: center;
+        font-weight: bold;
+        border-left: solid black 1px;
+        padding: 2px
+    }
+
+    td.dlheader {
+        background: #1b6ec2;
+        text-align: center;
+        font-weight: bold;
+        border-left: solid black 1px;
+        border-radius: 0px;
+        padding: 2px;
+        color: white;
+    }
+
+    tr.dlinfo,
+    td.dlinfo {
+        text-align: center;
+        border-left: solid black 1px;
+        border-top: solid black 1px;
+        padding: 2px
+    }
+
+        td.dlinfo:first-child,
+        td.dlheader:first-child {
+            border-left: none;
+        }
+
+    td.dlheader:first-child {
+        border-radius: 5px 0 0 0;
+    }
+
+    td.dlheader:last-child {
+        border-radius: 0 5px 0 0;
+    }
+
+
+
+
+    td.hover01:hover {
+        background-color: #90C4F9;
+        color: white
+    }
+
+    td.hover02:hover {
+        background-color: #dde6ee;
+    }
+
+    td.hover02:first-child {
+        border-radius: 0 0 0 6px;
+    }
+
+    td.hover02:last-child {
+        border-radius: 0 0 6px 0;
+    }
+</style>
+
+
+
+
+
+
+
+<table class="dltrc" style="background:none">
+    <thead>
+        <tr class="dlheader">
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.FullName)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.PatientNumber)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.Age)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.Gender)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.MailingAddress)
+            </td>
+            <td class="dlheader">
+                Hospitalization @Html.DisplayNameFor(model => model.Department)
+            </td>
+            <td class="dlheader">View Medical Report</td>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Doctor"))
+            {
+                <td class="dlheader">Edit Appointment</td>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="dlinfo hover01">
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.PatientNumber)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.MailingAddress)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </td>
+                <td class="dlinfo hover01">
+                    @{ var appointment = item.Doctors.Where(s => s.DoctorId.ToString() == ViewData["DoctorId"].ToString()).FirstOrDefault();
+                        int ID = appointment.Id; }
+                    <a asp-controller="Appointments" asp-action="Details" asp-route-id="@ID">Medical Report</a>
+
+
+
+                </td>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Doctor"))
+                {
+                    <td class="dlinfo hover01">
+                        @if (item.Department == null)
+                        {
+                            <a asp-controller="Appointments" asp-action="EditByDoctor2" asp-route-id="@ID">Edit by doctor  </a> }
+
+                        else
+                        {
+                    <a asp-controller="Appointments" asp-action="EditByDoctor" asp-route-id="@ID">Edit by doctor (edit hospitalised patient) </a>}
+
+
+
+
+                    </td>
+                }
+            </tr>
+}
+    </tbody>
+</table>
+
+<br />
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div>
+        <a asp-controller="Doctors" asp-action="Index" style="color: #dc3545">Back to List Of Doctors</a>
+    </div>
+}

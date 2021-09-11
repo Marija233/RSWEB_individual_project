@@ -1,0 +1,72 @@
+﻿@model Project2.ViewModels.DepartmentFormVM
+
+@{
+    ViewData["Title"] = "Edit Department";
+}
+
+
+
+<h2 style="color: #1b6ec2;text-shadow: 1px 1px 1px #1b6ec2">Edit Department</h2>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+
+            <div class="form-group">
+                <label asp-for=" ProfilePicture" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for=" ProfilePicture" type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose department image</label>
+                </div>
+                <span asp-validation-for=" ProfilePicture" class="text-danger"></span>
+                @{ if (Model.ProfilePicture != null)
+                    {
+                        <a href="~/images/@Model.ProfilePicture"
+                           asp-append-version="true" />} }
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfNurses" class="control-label"></label>
+                <input asp-for="NumberOfNurses" class="form-control" />
+                <span asp-validation-for="NumberOfNurses" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfParamedics" class="control-label"></label>
+                <input asp-for="NumberOfParamedics" class="form-control" />
+                <span asp-validation-for="NumberOfParamedics" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitSecretaryContactNumber" class="control-label"></label>
+                <input asp-for="UnitSecretaryContactNumber" class="form-control" />
+                <span asp-validation-for="UnitSecretaryContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List of Departments</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">// Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });</script>
+}

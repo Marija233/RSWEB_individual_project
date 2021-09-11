@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Project2.Models.Doctor>
+@{
+    ViewData["Title"] = "Doctors in the Department";
+}
+
+<h2 style="color: #1b6ec2;text-shadow: 1px 1px 1px #1b6ec2">Doctors in the Department of  @ViewData["DepartmentName"]</h2>
+<br />
+<style>
+    table.dltrc {
+        width: 95%;
+        border-collapse: separate;
+        border-spacing: 0px;
+        border: solid black 2px;
+        border-radius: 8px;
+    }
+
+    tr.dlheader {
+        text-align: center;
+        font-weight: bold;
+        border-left: solid black 1px;
+        padding: 2px
+    }
+
+    td.dlheader {
+        background: #dc3545;
+        text-align: center;
+        font-weight: bold;
+        border-left: solid black 1px;
+        border-radius: 0px;
+        padding: 2px;
+        color: white;
+    }
+
+    tr.dlinfo,
+    td.dlinfo {
+        text-align: center;
+        border-left: solid black 1px;
+        border-top: solid black 1px;
+        padding: 2px
+    }
+
+        td.dlinfo:first-child,
+        td.dlheader:first-child {
+            border-left: none;
+        }
+
+    td.dlheader:first-child {
+        border-radius: 5px 0 0 0;
+    }
+
+    td.dlheader:last-child {
+        border-radius: 0 5px 0 0;
+    }
+
+
+
+
+    td.hover01:hover {
+        background-color: #F38C94;
+        color: white
+    }
+
+    td.hover02:hover {
+        background-color: #dde6ee;
+    }
+
+    td.hover02:first-child {
+        border-radius: 0 0 0 6px;
+    }
+
+    td.hover02:last-child {
+        border-radius: 0 0 6px 0;
+    }
+</style>
+
+
+<table class="dltrc" style="background:none">
+    <thead>
+        <tr class="dlheader">
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.FullName)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.Specialty)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.Subspecialty)
+            </td>
+            <td class="dlheader">
+                Department @Html.DisplayNameFor(model => model.Department.Name)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.HireDate)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.Membership)
+            </td>
+            <td class="dlheader">Patients</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="dlinfo hover01">
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.Specialty)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.Subspecialty)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.HireDate)
+                </td>
+                <td class="dlinfo hover01">
+                    @Html.DisplayFor(modelItem => item.Membership)
+                </td>
+                <td class="dlinfo hover01">
+                    <a asp-controller="Doctors" asp-action="MyPatients" asp-route-id="@item.Id">View @Html.DisplayFor(modelItem => item.FullName)'s Patients</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<div>
+    <a asp-controller="Departments"  asp-action="Index" >Back to List Of Departments</a>
+</div>

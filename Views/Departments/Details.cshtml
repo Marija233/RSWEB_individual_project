@@ -1,0 +1,40 @@
+﻿@model Project2.Models.Department
+
+@{
+    ViewData["Title"] =  "Department Details";
+}
+
+<h2 style=" text-align: center; color: #1149a1;text-shadow: 2px 2px 2px #f22f39">Department of @Html.DisplayFor(model => model.Name) </h2>
+
+<br />
+<div>
+    <dl class="row">
+  
+        <dt class="col-sm-11" style="text-align:center">
+            &emsp;&emsp;&emsp;&emsp;&emsp;@Html.DisplayNameFor(model => model.NumberOfNurses)
+        </dt>
+        <dd class="col-sm-10" style="text-align:center">
+            &emsp;&emsp;&emsp;   &emsp;&emsp;&emsp;  &emsp;&emsp;&emsp; &emsp;@Html.DisplayFor(model => model.NumberOfNurses)
+        </dd>
+        <dt class="col-sm-11" style="text-align:center">
+            &emsp;&emsp;&emsp;&emsp;&emsp;@Html.DisplayNameFor(model => model.NumberOfParamedics)
+        </dt>
+        <dd class="col-sm-10" style="text-align:center">
+            &emsp;&emsp;&emsp;  &emsp;&emsp;&emsp;   &emsp;&emsp;&emsp;  &emsp;@Html.DisplayFor(model => model.NumberOfParamedics)
+        </dd>
+        <dt class="col-sm-11" style="text-align:center">
+            &emsp;&emsp;&emsp;&emsp;&emsp;@Html.DisplayNameFor(model => model.UnitSecretaryContactNumber)
+        </dt>
+        <dd class="col-sm-10" style="text-align:center">
+            &emsp;&emsp;&emsp;  &emsp;&emsp;&emsp;  &emsp;&emsp;&emsp;  &emsp;@Html.DisplayFor(model => model.UnitSecretaryContactNumber)
+        </dd>
+
+
+    </dl>
+    <p>
+        &nbsp;  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;
+        <a style=" color: #dc3545;text-shadow: 1px 1px 1px #dc3545" asp-action="Doctors" asp-route-id="@Model.Id">View Doctors</a>
+    <p />
+    &nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;
+    <a style="color: #1b6ec2;text-shadow: 1px 1px 1px #1b6ec2" asp-action="Index">Back to List of Departments</a>
+</div>

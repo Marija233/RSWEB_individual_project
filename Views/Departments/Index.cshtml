@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Project2.Models.Department>
+@{
+    ViewData["Title"] = "Departments";
+}
+
+
+
+
+<h1 style=" text-align: center;color: #1149a1; text-shadow: 2px 2px 2px #f22f39">DEPARTMENTS</h1>
+
+<br>
+
+<p>
+    &emsp;&emsp;&emsp; &emsp;&emsp; &emsp;
+    <a asp-action="Create"> Add a new department</a>
+</p>
+
+<form asp-action="Index" method="get">
+
+    <div class="form-actions no-color">
+        <p>
+
+            &emsp;&emsp;&emsp;&emsp; &emsp; &emsp;
+            <input type="text " style="width:20%" name="DepartmentName"
+                   placeholder="Search for a department" value="@ViewData["FilterNames"]" />
+
+
+            <input type="submit" value="Search" />
+
+        </p>
+    </div>
+</form>
+
+
+@for (int i = 0; i < Model.Count(); i += 3)
+{
+    <div class="row">
+        @foreach (var item in Model.Skip(i).Take(3))
+        {
+            <div class="col-md-4">
+                <div style="text-align: center;">
+
+                    <img src="~/images/@item.ProfilePicture"
+                         height="235" width="255"
+                         asp-append-version="true" />
+                    <p>
+                        <a asp-action="Details" asp-route-id="@item.Id"> @Html.DisplayFor(modelItem => item.Name) </a><br />
+
+
+                    </p>
+
+                    <p>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </p>
+                </div>
+            </div>}
+    </div>}

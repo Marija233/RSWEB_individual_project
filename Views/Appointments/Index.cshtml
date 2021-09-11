@@ -1,0 +1,160 @@
+﻿@model Project2.ViewModels.AppointmentDoctorFullNamePatientFullNameVM
+
+@{
+    ViewData["Title"] = "Appointments";
+}
+
+<h2 style=" text-align: center; color: #1149a1;text-shadow: 2px 2px 2px #f22f39">APPOINTMENTS</h2>
+<br />
+<style>
+    table.dltrc {
+        width: 95%;
+        border-collapse: separate;
+        border-spacing: 0px;
+        border: solid black 2px;
+        border-radius: 8px;
+    }
+
+    tr.dlheader {
+        text-align: center;
+        font-weight: bold;
+        border-left: solid black 1px;
+        padding: 2px
+    }
+
+    td.dlheader {
+        background: #90C4F9;
+        text-align: center;
+        font-weight: bold;
+        border-left: solid black 1px;
+        border-radius: 0px;
+        padding: 2px;
+        color: white;
+    }
+
+    tr.dlinfo,
+    td.dlinfo {
+        text-align: center;
+        border-left: solid black 1px;
+        border-top: solid black 1px;
+        padding: 2px;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background: #90C4F9;
+    }
+
+    tr:nth-child(odd) {
+        background: #1b6ec2;
+    }
+
+
+
+
+
+    td.dlinfo:first-child,
+    td.dlheader:first-child {
+        border-left: none;
+    }
+
+    td.dlheader:first-child {
+        border-radius: 5px 0 0 0;
+    }
+
+    td.dlheader:last-child {
+        border-radius: 0 5px 0 0;
+    }
+
+
+
+
+    td.hover01:hover {
+        color: white
+    }
+
+
+
+    tr:nth-child(even):hover {
+        background-color: #F38C94;
+    }
+
+    tr:nth-child(odd):hover {
+        background-color: #dc3545;
+    }
+
+
+    td.hover02:hover {
+        background-color: #dde6ee;
+    }
+
+    td.hover02:first-child {
+        border-radius: 0 0 0 6px;
+    }
+
+    td.hover02:last-child {
+        border-radius: 0 0 6px 0;
+    }
+</style>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+<p>
+
+    <a asp-action="Create">Add a new appointment</a>
+</p>
+ }
+  
+    <form asp-controller="Appointments" asp-action="Index" method="get">
+        <p>
+            <input type="text" asp-for="SearchString" placeholder="Search for a patient" />
+
+            <input type="submit" value="Search" />
+        </p>
+    </form>
+    <table class="dltrc" style="background:none">
+        <thead>
+            <tr class="dlheader">
+                <td class="dlheader">
+                    @Html.DisplayNameFor(model => model.Appointments[0].Patient)
+                </td>
+                <td class="dlheader">
+                    @Html.DisplayNameFor(model => model.Appointments[0].Doctor)
+                </td>
+                <td class="dlheader">
+                    @Html.DisplayNameFor(model => model.Appointments[0].Date)
+                </td>
+                <td class="dlheader">Details</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Appointments)
+            {
+                <tr class="dlinfo hover01">
+                    <td class="dlinfo hover01">
+                        @Html.DisplayFor(modelItem => item.Patient.FullName)
+                    </td>
+                    <td class="dlinfo hover01">
+                        @Html.DisplayFor(modelItem => item.Doctor.FullName)
+                    </td>
+                    <td class="dlinfo hover01">
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+
+                    <td class="dlinfo hover01">
+
+
+                       
+
+
+                            <a style="color:white" asp-action="Edit" asp-route-id="@item.Id">Edit |</a>
+                        
+                        <a style="color:white" asp-action="Details" asp-route-id="@item.Id">View Medical Record</a> 
+                      
+                    <a style="color:white" asp-action="Delete" asp-route-id="@item.Id">| Delete</a>
+                        
+                        </td>
+                </tr>
+            }
+        </tbody>
+    </table>

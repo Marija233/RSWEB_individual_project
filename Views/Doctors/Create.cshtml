@@ -1,0 +1,71 @@
+﻿@model Project2.ViewModels.DoctorFormVM
+
+@{
+    ViewData["Title"] = "Create Doctor";
+}
+
+<h2 style="color: #1b6ec2;text-shadow: 1px 1px 1px #1b6ec2">Create Doctor</h2>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for=" ProfilePicture" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for=" ProfilePicture" type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose image file</label>
+                </div>
+                <span asp-validation-for=" ProfilePicture" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Specialty" class="control-label"></label>
+                <input asp-for="Specialty" class="form-control" />
+                <span asp-validation-for="Specialty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subspecialty" class="control-label"></label>
+                <input asp-for="Subspecialty" class="form-control" />
+                <span asp-validation-for="Subspecialty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentId" class="control-label"></label>
+                <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
+                <span asp-validation-for="DepartmentId" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HireDate" class="control-label"></label>
+                <input asp-for="HireDate" class="form-control" />
+                <span asp-validation-for="HireDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Membership" class="control-label"></label>
+                <input asp-for="Membership" class="form-control" />
+                <span asp-validation-for="Membership" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List of Doctors</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

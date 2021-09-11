@@ -1,0 +1,125 @@
+﻿@model Project2.ViewModels.PatientFullNameVM
+
+@{
+    ViewData["Title"] = "Patients";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+     td {
+        text-align: left;
+        padding: 8px;
+    }
+    th {
+        background-color: #dc3545;
+        color: white
+    }
+    tr:nth-child(even) {
+        background-color: #dc3545;
+        color: white;       
+    }
+  
+    
+</style>
+
+<h1 style="text-align: center;color: #f22f39;text-shadow: 2px 2px 2px #f22f39">PATIENTS</h1>
+<br>
+
+<p>
+    <a asp-action="Create" style="color: #dc3545">Add a new patient</a>
+</p>
+<form asp-controller="Patients" asp-action="Index" method="get">
+    <p>
+        <input type="text" placeholder="Enter a patient's name" asp-for="SearchString" />
+
+
+
+
+        <input type="submit" value="Search" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Patients[0].FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patients[0].PatientNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patients[0].BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patients[0].Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patients[0].Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patients[0].PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patients[0].EmailAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patients[0].MailingAddress)
+            </th>
+            <th>
+              Hospitalization @Html.DisplayNameFor(model => model.Patients[0].Department)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Patients)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PatientNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MailingAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </td>
+
+
+                <td>
+                    <a asp-action="MyDoctors" asp-route-id="@item.Id"  style="color: #f22f39;text-shadow: 2px 2px 2px #1149a1">View Doctors</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id"  style="color: #f22f39;text-shadow: 2px 2px 2px #1149a1">Edit</a> |
+                  
+                    <a asp-action="Delete" asp-route-id="@item.Id"  style="color: #f22f39;text-shadow: 2px 2px 2px #1149a1">Delete</a> 
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,165 @@
+﻿@model Project2.Models.Patient
+
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<h2 style="color: #1b6ec2;text-shadow: 1px 1px 1px #1b6ec2">Details about @Html.DisplayFor(model => model.FullName) </h2>
+<br />
+<style>
+    table.dltrc {
+        width: 95%;
+        border-collapse: separate;
+        border-spacing: 0px;
+        border: solid black 2px;
+        border-radius: 8px;
+    }
+
+    tr.dlheader {
+        text-align: center;
+        font-weight: bold;
+        border-left: solid black 1px;
+        padding: 2px
+    }
+
+    td.dlheader {
+        background: #dc3545;
+        text-align: center;
+        font-weight: bold;
+        border-left: solid black 1px;
+        border-radius: 0px;
+        padding: 2px;
+        color: white;
+    }
+
+    tr.dlinfo,
+    td.dlinfo {
+        text-align: center;
+        border-left: solid black 1px;
+        border-top: solid black 1px;
+        padding: 2px
+    }
+
+        td.dlinfo:first-child,
+        td.dlheader:first-child {
+            border-left: none;
+        }
+
+    td.dlheader:first-child {
+        border-radius: 5px 0 0 0;
+    }
+
+    td.dlheader:last-child {
+        border-radius: 0 5px 0 0;
+    }
+
+
+
+
+    td.hover01:hover {
+        background-color: #F38C94;
+        color: white
+    }
+
+    td.hover02:hover {
+        background-color: #dde6ee;
+    }
+
+    td.hover02:first-child {
+        border-radius: 0 0 0 6px;
+    }
+
+    td.hover02:last-child {
+        border-radius: 0 0 6px 0;
+    }
+</style>
+
+
+
+
+<table class="dltrc" style="background:none">
+    <thead>
+        <tr class="dlheader">
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.FullName)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.PatientNumber)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.Age)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.Gender)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.MailingAddress)
+            </td>
+            <td class="dlheader">
+                Hospitalization @Html.DisplayNameFor(model => model.Department)
+            </td>
+            <td class="dlheader">
+                @Html.DisplayNameFor(model => model.Doctors)
+            </td>
+           
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr class="dlinfo hover01">
+            <td class="dlinfo hover01">
+                @Html.DisplayFor(model => model.FullName)
+            </td>
+            <td class="dlinfo hover01">
+                @Html.DisplayFor(model => model.PatientNumber)
+            </td>
+            <td class="dlinfo hover01">
+                @Html.DisplayFor(model => model.BirthDate)
+            </td>
+            <td class="dlinfo hover01">
+                @Html.DisplayFor(model => model.Age)
+            </td>
+            <td class="dlinfo hover01">
+                @Html.DisplayFor(model => model.Gender)
+            </td>
+            <td class="dlinfo hover01">
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </td>
+            <td class="dlinfo hover01">
+                @Html.DisplayFor(model => model.EmailAddress)
+            </td>
+            <td class="dlinfo hover01">
+                @Html.DisplayFor(model => model.MailingAddress)
+            </td>
+            <td class="dlinfo hover01">
+                @Html.DisplayFor(model => model.Department.Name)
+            </td>
+            <td class="dlinfo hover01">
+                @foreach (var doctor in Model.Doctors)
+                {
+                    <a asp-controller="Doctors" asp-action="Details" asp-route-id="@doctor.DoctorId">
+                        @doctor.Doctor.FullName
+                    </a> <br />
+                }
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+
+
+
+<br />
+<div>
+    <a asp-controller="Patients" asp-action="Index">Back to List Of Patients</a>
+</div>
